@@ -61,6 +61,9 @@
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/babylon.js"></script>
+  <script src="./static/js/babylonjs.loaders.min.js"></script>
 </head>
 
 <body>
@@ -362,6 +365,8 @@
                 <img class="selectable-image" name="wai">
                 <img class="selectable-image" name="wai">
               </div>
+              <img id="enlarged-image"
+                style="position: absolute; pointer-events: none; opacity: 0; z-index: 1000; transition: opacity 0.2s; border-radius: 4px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); max-width: 300px; max-height: 200px; object-fit: contain;">
             </div>
           </section>
 
@@ -478,7 +483,6 @@
   </footer>
   <script src="static/js/babylon-model-viewer.js"></script>
   <script src="static/js/gallery.js"></script>
-  <script src="static/js/comparison.js"></script>
   <script src="static/js/selection-panel.js"></script>
 </body>
 
