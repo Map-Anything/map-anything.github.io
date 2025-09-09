@@ -2,10 +2,18 @@
 <html>
 
 <head>
+  <style>
+    :root {
+      --mapanything-color: #f08f35;
+      /* 🎨 Change this color for MapAnything brand */
+    }
+  </style>
+
   <meta charset="utf-8">
   <meta name="description"
     content="MapAnything is a simple, end-to-end trained transformer model that directly regresses the factored metric 3D geometry of a scene given various types of modalities as inputs. A single feed-forward model supports over 12 different 3D reconstruction tasks including multi-image sfm, multi-view stereo, monocular metric depth estimation, registration, depth completion and more.">
-  <meta name="keywords" content="MapAnything, 3D reconstruction, Image-to-3D, Depth Estimation, End-to-end geometric network">
+  <meta name="keywords"
+    content="MapAnything, 3D reconstruction, Image-to-3D, Depth Estimation, End-to-end geometric network">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="image" content="https://map-anything.github.io/resources/teaser.jpg">
   <title>MapAnything: Universal Feed-Forward Metric 3D Reconstruction</title>
@@ -47,6 +55,7 @@
   <link rel="stylesheet" href="./static/css/copy_button.css">
   <link rel="stylesheet" href="./static/css/gallery.css">
   <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/selection-panel.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -61,57 +70,81 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-4 publication-title" style="font-size: 2rem;">MapAnything: Universal Feed-Forward Metric 3D Reconstruction</h1>
+            <h1 class="title is-4 publication-title" style="font-size: 2rem;">
+              <span style="color: var(--mapanything-color);">MapAnything</span>: Universal Feed-Forward Metric 3D
+              Reconstruction
+            </h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://nik-v9.github.io/">Nikhil Keetha</a>
-              </span>
-              &nbsp;&nbsp;&nbsp;
-              <span class="author-block"> 
-                <a href="todo">Todo</a>
+                Nikhil Keetha
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Norman Müller
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Johannes Schönberger
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                Lorenzo Porzi
               </span>
               <br>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Yuchen Zhang
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Tobias Fischer
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Arno Knapitsch
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Duncan Zauss
               </span>
               <br>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Ethan Weber
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Nelson Antunes
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="todo">Todo</a>
+                Manuel Lopez-Antequera
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                Samuel Rota Bulò
+              </span>
+              <br>
+              &nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                Christian Richardt
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                Deva Ramanan
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                Sebastian Scherer
+              </span>
+              &nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                Peter Kontschieder
               </span>
             </div>
 
             <div class="is-size-5 publication-authors" style="margin-bottom: 10px;">
-              <span class="author-block" style="margin-right: 10px;">TODO</span>
+              <span class="author-block" style="margin-right: 10px;">arXiv 2025</span>
             </div>
 
             <div class="column has-text-centered">
@@ -126,13 +159,13 @@
                     <span>Paper</span>
                   </a>
                 </span>
-                <!-- ArXiv Link. -->
+                <!-- arXiv Link. -->
                 <span class="link-block">
                   <a href="TODO" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="ai ai-arxiv"></i>
                     </span>
-                    <span>Arxiv</span>
+                    <span>arXiv</span>
                   </a>
                 </span>
                 <!-- Code Link. -->
@@ -147,7 +180,8 @@
                 </span>
                 <!-- Model Link -->
                 <span class="link-block">
-                  <a href="https://huggingface.co/facebook/map-anything" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://huggingface.co/facebook/map-anything"
+                    class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fas fa-puzzle-piece"></i>
                     </span>
@@ -156,7 +190,8 @@
                 </span>
                 <!-- Apache Model Link -->
                 <span class="link-block">
-                  <a href="https://huggingface.co/facebook/map-anything-apache" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://huggingface.co/facebook/map-anything-apache"
+                    class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fas fa-puzzle-piece"></i>
                     </span>
@@ -183,14 +218,18 @@
   <style>
     .video-border {
       display: inline-block;
-      padding: 2px; /* adjust thickness of your 'border' */
+      padding: 2px;
+      /* adjust thickness of your 'border' */
       border-radius: 4px;
-      background: linear-gradient(45deg, #ff9a9e, #fad0c4); /* try different gradient colors */
+      background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+      /* try different gradient colors */
     }
+
     .video-border video {
       display: block;
       border: none;
-      border-radius: 4px; /* match the wrapper for a consistent look */
+      border-radius: 4px;
+      /* match the wrapper for a consistent look */
     }
   </style>
 
@@ -199,32 +238,39 @@
       max-width: 60%;
       margin: 0 auto;
       display: block;
-      border: none; /* remove the solid border */
+      border: none;
+      /* remove the solid border */
       border-radius: 4px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
-    
+
     #architecture-img {
       width: 90%;
       margin: 0 auto;
       display: block;
       border: none;
-      border-radius: 0; /* removed border radius */
-      box-shadow: none; /* removed box shadow */
+      border-radius: 0;
+      /* removed border radius */
+      box-shadow: none;
+      /* removed box shadow */
     }
-    
+
     /* Enhanced style to further reduce space between buttons and teaser video */
     .hero.teaser {
       padding-top: 0;
-      margin-top: -3rem; /* Added negative margin to pull the teaser section up */
+      margin-top: -3rem;
+      /* Added negative margin to pull the teaser section up */
     }
+
     .hero.teaser .hero-body {
-      padding-top: 0; /* Reduced from 1rem to 0 */
+      padding-top: 0;
+      /* Reduced from 1rem to 0 */
     }
-    
+
     /* Reduce space between hero section (links) and TLDR section */
     .hero {
-      margin-bottom: -3rem; /* Pull the next section up */
+      margin-bottom: -3rem;
+      /* Pull the next section up */
     }
   </style>
 
@@ -236,13 +282,18 @@
 
           <div class="content has-text-justified">
             <p>
-              <b>TLDR:</b> MapAnything is a simple, end-to-end trained transformer model that directly regresses the factored metric 3D geometry of a scene given various types of modalities as inputs. A single feed-forward model supports over 12 different 3D reconstruction tasks including multi-image sfm, multi-view stereo, monocular metric depth estimation, registration, depth completion and more.
+              <b>TLDR:</b> <span style="color: var(--mapanything-color);">MapAnything</span> is a simple, end-to-end
+              trained transformer model that directly regresses the
+              factored metric 3D geometry of a scene given various types of modalities as inputs. A single feed-forward
+              model supports over 12 different 3D reconstruction tasks including multi-image sfm, multi-view stereo,
+              monocular metric depth estimation, registration, depth completion and more.
             </p>
           </div>
 
           <div class="content has-text-centered">
             <!-- Teaser Collage -->
-            <img id="teaser-collage" src="./resources/todo.webp" alt="Teaser Collage" style="width: 100%; margin-bottom: 0.5rem;">
+            <img id="teaser-collage" src="./resources/todo.webp" alt="Teaser Collage"
+              style="width: 100%; margin-bottom: 0.5rem;">
             <p style="margin-bottom: 1.5rem;">
               TODO
             </p>
@@ -269,231 +320,140 @@
           </div>
 
           <br>
-          
-          <!-- Updated Video Gallery -->
-          <h2 class="title is-4" style="font-weight: 700;">Video Gallery</h2>
-          <div class="content has-text-justified">
+
+          <!-- Results -->
+          <h2 class="title is-4" style="font-weight: 700;">Results</h2>
+          <div class="content has-text-centered">
             <p>
-              We visualize UFM's predictions through warping the target image back to the source image with the predicted flow image.
+              We visualize MapAnything results on a variety of inputs.
             </p>
           </div>
-          <div class="gallery-container">
-            <div class="main-video-container">
-              <video id="main-video" autoplay muted loop playsinline>
-                <source src="./resources/bike.mp4" type="video/mp4">
-              </video>
-              <div class="video-info">
-                <h2 class="video-title" id="video-title">Bike Motion Analysis</h2>
-                <p class="video-description" id="video-description">UFM demonstrates exceptional performance in tracking complex motion patterns of bicycles in urban environments.</p>
+
+
+          <section class="hero is-light">
+            <div class="container is-max-desktop" style="width: 100%;">
+
+              <div id="toggleTexturedGallery" class="toggle-container">
+                <button class="toggle-button toggle-left">Geometry only</button>
+                <button class="toggle-button toggle-right active">Textured</button>
+              </div>
+              <div class="model-wrapper" style="width: 100%; aspect-ratio: 1.4/1;">
+                <div class="tips-wrapper">
+                  <div class="tips-icon">💡Tips</div>
+                  <div class="tips-text">
+                    <p>● <b>Zoom</b> - Scroll mouse wheel or pinch</p>
+                    <p>● <b>Rotate</b> - Left drag</p>
+                    <p>● <b>Pan</b> - Right drag</p>
+                    <p>● <b>Pick a point</b> - Left click</p>
+                  </div>
+                </div>
+                <div id="measureTextBox" class="float-text-box">
+                  Pick two points and measure the distance
+                </div>
+                <canvas id="renderCanvas" class="babylon-model-viewer" style="width: 100%; height: 100%;"></canvas>
+              </div>
+              <div id="gallerySelectionPanel" class="selection-panel"
+                style="width: 100%; aspect-ratio: 3.4/1; margin-bottom: 1em;">
+                <img class="selectable-image" name="wai">
+                <img class="selectable-image" name="wai">
+                <img class="selectable-image" name="wai">
+                <img class="selectable-image" name="wai">
+                <img class="selectable-image" name="wai">
+                <img class="selectable-image" name="wai">
+                <img class="selectable-image" name="wai">
               </div>
             </div>
-            
-            <div class="thumbnails-container" id="thumbnails-container">
-              <!-- Thumbnails will be added by JavaScript -->
-            </div>
-            
-            <div class="gallery-controls">
-              <!-- <button class="gallery-btn" id="prev-btn">
-                <i class="fas fa-arrow-left"></i> Previous
-              </button>
-              <button class="gallery-btn" id="next-btn">
-                Next <i class="fas fa-arrow-right"></i>
-              </button> -->
-            </div>
-          </div>
-          
-          <style>
-            .thumbnail-container img, .thumbnail-container video {
-              transition: all 0.3s ease;
-              border: 3px solid transparent;
-              cursor: pointer;
-            }
-            .thumbnail-selected {
-              transform: scale(1.2);
-              border: 6px solid #79b4f2 !important; 
-              box-shadow: 0 0 10px rgba(121, 180, 242, 0.5);
-              z-index: 10;
-              position: relative;
-            }
-            
-            /* New styles for responsive horizontal gallery */
-            .thumbnail-container {
-              display: flex;
-              flex-wrap: nowrap;
-              overflow-x: auto;
-              gap: 10px;
-              padding: 10px 0;
-              -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-              scrollbar-width: thin;
-              align-items: center;
-            }
-            
-            .thumbnail-container img, 
-            .thumbnail-container video {
-              flex: 0 0 auto;
-              width: auto;
-              height: 120px; /* Consistent height */
-              object-fit: cover;
-              max-width: none;
-            }
-            
-            /* Custom scrollbar styling */
-            .thumbnail-container::-webkit-scrollbar {
-              height: 6px;
-            }
-            
-            .thumbnail-container::-webkit-scrollbar-track {
-              background: #f1f1f1;
-              border-radius: 10px;
-            }
-            
-            .thumbnail-container::-webkit-scrollbar-thumb {
-              background: #888;
-              border-radius: 10px;
-            }
-            
-            .thumbnail-container::-webkit-scrollbar-thumb:hover {
-              background: #555;
-            }
-            
-            /* Adjust for smaller screens */
-            @media (max-width: 768px) {
-              .thumbnail-container img,
-              .thumbnail-container video {
-                height: 100px;
-              }
-            }
-          </style>
-          <script>
-            // The problem is here - you're trying to select an element that doesn't exist
-            // document.querySelector('#thumbnail-qualitative img[src="resources/qualitative/college.png"]').classList.add('thumbnail-selected');
-            
-            // Instead, select the first element that actually exists in your thumbnail container
-            document.addEventListener('DOMContentLoaded', function() {
-              // Select the first element in the thumbnail container (video or image)
-              const firstThumbnail = document.querySelector('#thumbnail-qualitative video, #thumbnail-qualitative img');
-              if (firstThumbnail) {
-                firstThumbnail.classList.add('thumbnail-selected');
-                // If it's a video, play it
-                if (firstThumbnail.tagName.toLowerCase() === 'video') {
-                  firstThumbnail.play();
-                }
-              }
-              
-              document.querySelectorAll('#thumbnail-qualitative img, #thumbnail-qualitative video').forEach(el => {
-                // Rest of your click handler code remains the same
-                el.addEventListener('click', () => {
-                  const glbSrc = el.getAttribute('data-glb');
-                  const modelViewer = document.getElementById('QualitativeResult');
-                  modelViewer.setAttribute('src', glbSrc);
-                  modelViewer.cameraOrbit = "180deg 70deg auto";
-                  modelViewer.resetTurntableRotation(0);
-                  modelViewer.jumpCameraToGoal();
+          </section>
 
-                  // Remove selection class from all elements
-                  document.querySelectorAll('#thumbnail-qualitative img, #thumbnail-qualitative video').forEach(element => {
-                      element.classList.remove('thumbnail-selected');
-                  });
-                  
-                  // Add selection class to clicked element
-                  el.classList.add('thumbnail-selected');
-                  
-                  // Play video if it's a video element
-                  if (el.tagName.toLowerCase() === 'video') {
-                      el.play();
-                  }
-                  
-                  // Pause all other videos
-                  document.querySelectorAll('#thumbnail-qualitative video').forEach(video => {
-                      if (video !== el) {
-                          video.pause();
-                          video.currentTime = 0;
-                      }
-                  });
-                });
-              });
-            });
-          </script>
 
+
+
+          <br>
+          <br>
           <br>
 
           <h2 class="title is-4" style="font-weight: 700;">Qualitative Comparison</h2>
           <div class="content has-text-justified" style="align-self: flex-start;">
             <p>
-              
+
             </p>
           </div>
 
           <div class="content has-text-centered">
-            <img id="qualitative-comp" src="https://placehold.co/600x400" alt="Qualitative Comparison" style="width: 100%;">
+            <img id="qualitative-comp" src="https://placehold.co/600x400" alt="Qualitative Comparison"
+              style="width: 100%;">
             <!-- <img id="qualitative-comp" src="./resources/qualitative_comp.jpg" alt="Qualitative Comparison"> -->
           </div>
-          
+
         </div>
       </div>
     </div>
   </section>
-  
+
   <section class="section" id="BibTeX">
-        <div class="container is-max-desktop content">
-            <h2 class="title is-4" style="font-weight: 700;">BibTeX</h2>
-            <div class="bibtex-container">
-                <button class="copy-button" onclick="copyBibTeX()" title="Copy BibTeX">
-                    <i class="fas fa-copy"></i>
-                </button>
-                <div class="copy-feedback" id="copyFeedback">Copied!</div>
-                <pre>
-                  <code id="bibtexCode">TODO
+    <div class="container is-max-desktop content">
+      <h2 class="title is-4" style="font-weight: 700;">BibTeX</h2>
+      <div class="bibtex-container">
+        <button class="copy-button" onclick="copyBibTeX()" title="Copy BibTeX">
+          <i class="fas fa-copy"></i>
+        </button>
+        <div class="copy-feedback" id="copyFeedback">Copied!</div>
+        <pre><code id="bibtexCode">@misc{keetha2025mapanything,
+  title  = {MapAnything: Universal Feed-Forward Metric 3D Reconstruction},
+  author = {Nikhil Keetha and Norman M\"uller and Johannes Sch\"onberger and Lorenzo Porzi and
+            Yuchen Zhang and Tobias Fischer and Arno Knapitsch and Duncan Zauss and
+            Ethan Weber and Nelson Antunes and Manuel Lopez-Antequera and Samuel Rota Bul\`o and
+            Christian Richardt and Deva Ramanan and Sebastian Scherer and Peter Kontschieder},
+  note   = {arXiv:XXXX.XXXXX},
+  year   = {2025}
+}</code></pre>
+      </div>
+    </div>
+  </section>
 
-                  </code>
-                </pre>
-            </div>
-        </div>
-    </section>
+  <script>
+    async function copyBibTeX() {
+      const bibtexText = document.getElementById('bibtexCode').textContent;
+      const copyButton = document.querySelector('.copy-button');
+      const feedback = document.getElementById('copyFeedback');
 
-    <script>
-        async function copyBibTeX() {
-            const bibtexText = document.getElementById('bibtexCode').textContent;
-            const copyButton = document.querySelector('.copy-button');
-            const feedback = document.getElementById('copyFeedback');
-            
-            try {
-                await navigator.clipboard.writeText(bibtexText);
-                
-                // Show success feedback
-                copyButton.classList.add('copied');
-                copyButton.innerHTML = '<i class="fas fa-check"></i>';
-                feedback.classList.add('show');
-                
-                // Reset after 2 seconds
-                setTimeout(() => {
-                    copyButton.classList.remove('copied');
-                    copyButton.innerHTML = '<i class="fas fa-copy"></i>';
-                    feedback.classList.remove('show');
-                }, 2000);
-                
-            } catch (err) {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = bibtexText;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                
-                // Show success feedback
-                copyButton.classList.add('copied');
-                copyButton.innerHTML = '<i class="fas fa-check"></i>';
-                feedback.classList.add('show');
-                
-                setTimeout(() => {
-                    copyButton.classList.remove('copied');
-                    copyButton.innerHTML = '<i class="fas fa-copy"></i>';
-                    feedback.classList.remove('show');
-                }, 2000);
-            }
-        }
-    </script>
+      try {
+        await navigator.clipboard.writeText(bibtexText);
+
+        // Show success feedback
+        copyButton.classList.add('copied');
+        copyButton.innerHTML = '<i class="fas fa-check"></i>';
+        feedback.classList.add('show');
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+          feedback.classList.remove('show');
+        }, 2000);
+
+      } catch (err) {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = bibtexText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        // Show success feedback
+        copyButton.classList.add('copied');
+        copyButton.innerHTML = '<i class="fas fa-check"></i>';
+        feedback.classList.add('show');
+
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+          feedback.classList.remove('show');
+        }, 2000);
+      }
+    }
+  </script>
 
   <section class="section" id="Acknowledgements" style="padding-top: 0rem;">
     <div class="container is-max-desktop content">
@@ -516,187 +476,10 @@
       </div>
     </div>
   </footer>
+  <script src="static/js/babylon-model-viewer.js"></script>
+  <script src="static/js/gallery.js"></script>
   <script src="static/js/comparison.js"></script>
-  
-  <!-- <script>
-    // Video gallery functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      // Video data
-      const videos = [
-        {
-          title: "Ego-Exo4D: Cooking",
-          description: "First person view warped to the third person view by correspondence predicted by UFM.",
-          videoUrl: "./resources/cooking.mp4",
-          thumbnailUrl: "./resources/video_thumbnail/cooking.jpg"
-        },
-        {
-          title: "Ego-Exo4D: Bike",
-          description: "Third person view warped to the first person view by correspondence predicted by UFM.",
-          videoUrl: "./resources/bike.mp4",
-          thumbnailUrl: "./resources/video_thumbnail/bike.jpg"
-        },
-      ];
-
-      // DOM elements
-      const mainVideo = document.getElementById('main-video');
-      const mainVideoSource = mainVideo.querySelector('source');
-      const videoTitle = document.getElementById('video-title');
-      const videoDescription = document.getElementById('video-description');
-      const thumbnailsContainer = document.getElementById('thumbnails-container');
-      // const prevBtn = document.getElementById('prev-btn');
-      // const nextBtn = document.getElementById('next-btn');
-      
-      let currentVideoIndex = 0;
-
-      // Initialize gallery
-      function initGallery() {
-        // Create thumbnails
-        videos.forEach((video, index) => {
-          const thumbnail = document.createElement('div');
-          thumbnail.className = 'thumbnail';
-          if (index === currentVideoIndex) {
-            thumbnail.classList.add('active');
-          }
-          
-          thumbnail.innerHTML = `
-            <img src="${video.thumbnailUrl}" alt="${video.title}">
-            <div class="thumbnail-title">${video.title}</div>
-          `;
-          
-          thumbnail.addEventListener('click', () => {
-            switchVideo(index);
-          });
-          
-          thumbnailsContainer.appendChild(thumbnail);
-        });
-        
-        // Set initial video
-        updateMainVideo();
-      }
-      
-      // Switch video
-      function switchVideo(index) {
-        if (index === currentVideoIndex) return;
-        
-        // Update active thumbnail
-        document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
-          if (i === currentVideoIndex) {
-            thumb.classList.remove('active');
-          }
-          if (i === index) {
-            thumb.classList.add('active');
-          }
-        });
-        
-        currentVideoIndex = index;
-        updateMainVideo();
-      }
-      
-      // Update main video
-      function updateMainVideo() {
-        const video = videos[currentVideoIndex];
-        
-        // Fade out current video
-        mainVideo.style.opacity = 0;
-        
-        setTimeout(() => {
-          mainVideoSource.src = video.videoUrl;
-          mainVideo.load();
-          
-          // Fade in new video
-          mainVideo.style.opacity = 1;
-          
-          videoTitle.textContent = video.title;
-          videoDescription.textContent = video.description;
-        }, 300);
-      }
-      
-      // Navigation
-      // prevBtn.addEventListener('click', () => {
-      //   let newIndex = currentVideoIndex - 1;
-      //   if (newIndex < 0) {
-      //     newIndex = videos.length - 1;
-      //   }
-      //   switchVideo(newIndex);
-      // });
-      
-      // nextBtn.addEventListener('click', () => {
-      //   let newIndex = currentVideoIndex + 1;
-      //   if (newIndex >= videos.length) {
-      //     newIndex = 0;
-      //   }
-      //   switchVideo(newIndex);
-      // });
-      
-      // Initialize the gallery
-      initGallery();
-    });
-  </script> -->
-  
-  <!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Set initial camera positions for all model viewers
-      const initialModelViewers = [
-        document.getElementById('QualitativeResult'),
-        document.getElementById('modelViewerComparison1'),
-        document.getElementById('modelViewerComparison2'),
-        document.getElementById('modelViewerComparison3')
-      ];
-      
-      // Apply consistent initial camera settings to all model viewers
-      initialModelViewers.forEach(viewer => {
-        if (viewer) {
-          viewer.addEventListener('load', () => {
-            viewer.cameraOrbit = "180deg 70deg auto";
-            if (viewer.resetTurntableRotation) {
-              viewer.resetTurntableRotation(0);
-            }
-            viewer.jumpCameraToGoal();
-          });
-        }
-      });
-      
-      // Handle comparison thumbnails
-      const firstComparisonThumbnail = document.querySelector('#thumbnail-comparison video, #thumbnail-comparison img');
-      if (firstComparisonThumbnail) {
-        firstComparisonThumbnail.classList.add('thumbnail-selected');
-        // If it's a video, play it
-        if (firstComparisonThumbnail.tagName.toLowerCase() === 'video') {
-          firstComparisonThumbnail.play();
-        }
-      }
-      
-      document.querySelectorAll('#thumbnail-comparison img, #thumbnail-comparison video').forEach(el => {
-        el.addEventListener('click', () => {
-          const name = el.getAttribute('name');
-          
-          // Add selection class to clicked element
-          el.classList.add('thumbnail-selected');
-          
-          // Play video if it's a video element
-          if (el.tagName.toLowerCase() === 'video') {
-            el.play();
-          }
-          
-          // Pause all other videos
-          document.querySelectorAll('#thumbnail-comparison video').forEach(video => {
-            if (video !== el) {
-              video.pause();
-              video.currentTime = 0;
-            }
-          });
-        });
-      });
-      
-      // Handle dropdown change for the third comparison model
-      document.getElementById('comparisonBaselineSelection').addEventListener('change', function() {
-        const selectedName = document.querySelector('#thumbnail-comparison .thumbnail-selected').getAttribute('name');
-        const baseline = this.value;
-        document.getElementById('modelViewerComparison3').setAttribute('src', `resources/comparison/${baseline}/${selectedName}.glb`);
-      });
-    });
-  </script> -->
-
+  <script src="static/js/selection-panel.js"></script>
 </body>
 
 </html>
