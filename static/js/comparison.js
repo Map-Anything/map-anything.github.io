@@ -3,6 +3,8 @@ const modelViewerComparison2 = document.querySelector("model-viewer#modelViewerC
 
 // Define the list of comparison scenes
 const comparisonScenes = [
+    'peter_scenic',
+    'panda',
     'aachen_night_spring',
     'berlin',
     'drifting',
@@ -12,9 +14,7 @@ const comparisonScenes = [
     'mt_washington',
     'night_iphone_robot_vid',
     'night_temple',
-    'panda',
     'park_sisters_statue',
-    'peter_scenic',
     'skyscraper',
     'vatutin',
     'window',
