@@ -9,6 +9,8 @@
     }
   </style>
 
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌎</text></svg>">
   <meta charset="utf-8">
   <meta name="description"
     content="MapAnything is a simple, end-to-end trained transformer model that directly regresses the factored metric 3D geometry of a scene given various types of modalities as inputs. A single feed-forward model supports over 12 different 3D reconstruction tasks including multi-image sfm, multi-view stereo, monocular metric depth estimation, registration, depth completion and more.">
@@ -50,7 +52,7 @@
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/copy_button.css">
   <link rel="stylesheet" href="./static/css/gallery.css">
@@ -58,7 +60,6 @@
   <link rel="stylesheet" href="./static/css/selection-panel.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
@@ -336,10 +337,6 @@
           <section class="hero is-light">
             <div class="container is-max-desktop" style="width: 100%;">
 
-              <div id="toggleTexturedGallery" class="toggle-container">
-                <button class="toggle-button toggle-left">Geometry only</button>
-                <button class="toggle-button toggle-right active">Textured</button>
-              </div>
               <div class="model-wrapper" style="width: 100%; aspect-ratio: 1.4/1;">
                 <div class="tips-wrapper">
                   <div class="tips-icon">💡Tips</div>
@@ -357,7 +354,7 @@
               </div>
               <div id="gallerySelectionPanel" class="selection-panel"
                 style="width: 100%; aspect-ratio: 3.4/1; margin-bottom: 1em;">
-                <img class="selectable-image" name="basketball">
+                <img class="selectable-image selected" name="basketball">
                 <img class="selectable-image" name="basti_desk">
                 <img class="selectable-image" name="dino">
                 <img class="selectable-image" name="grindelwald">

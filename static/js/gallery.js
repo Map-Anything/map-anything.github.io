@@ -79,6 +79,13 @@ function resetViewer(viewer) {
     viewer.camera.lowerRadiusLimit = 0.3 * sceneSize;
     viewer.camera.upperRadiusLimit = sceneSize * 2;
     viewer.camera.wheelPrecision = 500 / sceneSize;
+
+    // Reduce keyboard movement sensitivity
+    viewer.camera.angularSensibilityX = 2000; // Higher values = slower movement (default is ~1000)
+    viewer.camera.angularSensibilityY = 2000; // Higher values = slower movement (default is ~1000)
+    viewer.camera.panningSensibility = 2000;  // Higher values = slower panning (default is ~1000)
+    viewer.camera.inertia = 0.9; // Smooth movement with inertia (0-1, higher = more inertia)
+
     viewer.camera.alpha = 0.5 * Math.PI;
     viewer.camera.beta = 0.4 * Math.PI;
 
@@ -86,15 +93,14 @@ function resetViewer(viewer) {
     // console.log('resetViewer: Camera radius =', viewer.camera.radius);
     // console.log('resetViewer: Camera position =', viewer.camera.position);
 
-    // Set the material
+    // Set the material (always use textured/original material)
     if (viewer.scene.meshes.length > 1) {
         const mesh = viewer.scene.meshes[1];
         // DEBUG: Uncomment for material debugging
         // console.log('resetViewer: Setting material on mesh:', mesh.name);
         mesh.originalMaterial = mesh.material;
-        if (document.querySelector('#toggleTexturedGallery .toggle-left.active')) {
-            mesh.material = viewer.plainMaterial;
-        }
+        // Always use the original textured material
+        mesh.material = mesh.originalMaterial;
     } else {
         console.warn('resetViewer: No mesh at index 1 to apply material to');
     }
@@ -173,19 +179,89 @@ window.addEventListener("DOMContentLoaded", () => {
     // Initialize the viewer with a default model
     const name = document.querySelector('#gallerySelectionPanel .selectable-image.selected').getAttribute('name');
     const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
-    console.log('Loading initial GLB:', glbPath);
+    // console.log('Loading initial GLB:', glbPath);
     clearAnnotations();
     viewer.loadGLB(glbPath, () => { resetViewer(viewer) }, (error) => {
         console.error('Failed to load GLB:', glbPath, error);
     });
 });
 
-// Initialize the selection panel images
+// Initialize the selection panel images with hover cycling functionality
 $('#gallerySelectionPanel .selectable-image').each((i, img) => {
     var name = img.getAttribute('name');
     img.src = `static/qual_viz_outputs/${name}/${name}_input_images/view_0.png`;
-    console.log(img.src);
-})
+
+    let currentImageIndex = 0;
+    let cyclingInterval = null;
+    let availableImages = [];
+    let isDiscovering = false;
+
+    // Pre-populate available images based on common patterns to avoid 404s
+    const discoverImages = () => {
+        if (isDiscovering) return; // Prevent multiple discoveries
+        isDiscovering = true;
+
+        availableImages = [];
+
+        // Common image counts for different datasets - adjust these based on your actual data
+        const expectedCounts = {
+            'basketball': 2,
+            'basti_desk': 2,
+            'dino': 3,
+            'grindelwald': 4,
+            'jpl_mars_yard': 6,
+            'kpi': 3,
+            'mt_washington': 5,
+            'painting': 2,
+            'panda_wildwest': 4
+        };
+
+        // Use expected count if available, otherwise try up to 10 images
+        const maxImages = expectedCounts[name] || 10;
+
+        // Pre-populate the available images array without testing
+        for (let i = 0; i < maxImages; i++) {
+            availableImages.push(`static/qual_viz_outputs/${name}/${name}_input_images/view_${i}.png`);
+        }
+
+        console.log(`Pre-loaded ${availableImages.length} images for ${name}`);
+        isDiscovering = false;
+    };
+
+    // Initialize images immediately on page load
+    discoverImages();
+
+    // Add hover event listeners
+    $(img).on('mouseenter', function() {
+        // Since images are already discovered, just start cycling if we have multiple images
+        if (availableImages.length > 1) {
+            startCycling();
+        }
+
+        function startCycling() {
+            if (cyclingInterval) return; // Already cycling
+
+            currentImageIndex = 0;
+            // Start with the first image displayed for full duration
+            img.src = availableImages[currentImageIndex];
+
+            cyclingInterval = setInterval(() => {
+                currentImageIndex = (currentImageIndex + 1) % availableImages.length;
+                img.src = availableImages[currentImageIndex];
+            }, 250); // Change image every 250ms for even faster cycling
+        }
+    });
+
+    $(img).on('mouseleave', function() {
+        if (cyclingInterval) {
+            clearInterval(cyclingInterval);
+            cyclingInterval = null;
+        }
+        // Reset to first image
+        currentImageIndex = 0;
+        img.src = `static/qual_viz_outputs/${name}/${name}_input_images/view_0.png`;
+    });
+});
 
 const gallerySelectionPanel = document.getElementById('gallerySelectionPanel');
 gallerySelectionPanel.addEventListener('click', async function(event) {
@@ -201,7 +277,7 @@ gallerySelectionPanel.addEventListener('click', async function(event) {
 
     const name = img.getAttribute('name');
     const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
-    console.log('Loading GLB on click:', glbPath);
+    // console.log('Loading GLB on click:', glbPath);
 
     const viewer = canvas.viewer;
     clearAnnotations();
@@ -211,28 +287,4 @@ gallerySelectionPanel.addEventListener('click', async function(event) {
 });
 
 
-// Set the toggle buttons
-const toggleGalleryLeftButton = document.querySelector('#toggleTexturedGallery .toggle-left');
-const toggleGalleryRightButton = document.querySelector('#toggleTexturedGallery .toggle-right');
-
-toggleGalleryLeftButton.addEventListener('click', function() {
-    toggleGalleryLeftButton.classList.add('active');
-    toggleGalleryRightButton.classList.remove('active');
-
-    const viewer = canvas.viewer;
-    if ((viewer.scene.meshes.length > 1) && (viewer.scene.meshes[1].getTotalVertices() > 0)) {
-        mesh = viewer.scene.meshes[1];
-        mesh.material = viewer.plainMaterial;
-    }
-});
-
-toggleGalleryRightButton.addEventListener('click', function() {
-    toggleGalleryRightButton.classList.add('active');
-    toggleGalleryLeftButton.classList.remove('active');
-
-    const viewer = canvas.viewer;
-    if ((viewer.scene.meshes.length > 1) && (viewer.scene.meshes[1].getTotalVertices() > 0)) {
-        mesh = viewer.scene.meshes[1];
-        mesh.material = mesh.originalMaterial;
-    }
-});
+// Toggle functionality removed - always use textured materials
