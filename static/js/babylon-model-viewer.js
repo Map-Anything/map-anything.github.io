@@ -66,10 +66,13 @@ class BabylonModelViewer {
         this.scene.materials.forEach(mat => mat.dispose());
     }
 
-    loadGLB(fileUrl, onSuccess) {
+    loadGLB(fileUrl, onSuccess, onError) {
         // Clear previous meshes and materials
         this.clearMeshes();
         this.clearMaterials();
+
+        // DEBUG: Uncomment for GLB loading debugging
+        // console.log('BabylonModelViewer: Attempting to load GLB:', fileUrl);
 
         // Load the glb file
         BABYLON.SceneLoader.Append(
@@ -77,8 +80,15 @@ class BabylonModelViewer {
             fileUrl,
             this.scene,
             () => {
+                // DEBUG: Uncomment for GLB loading debugging
+                // console.log('BabylonModelViewer: Successfully loaded GLB:', fileUrl);
                 if (onSuccess) onSuccess();
             },
+            null, // onProgress callback
+            (scene, message, exception) => {
+                console.error('BabylonModelViewer: Failed to load GLB:', fileUrl, 'Message:', message, 'Exception:', exception);
+                if (onError) onError({ message, exception });
+            }
         );
     }
 }

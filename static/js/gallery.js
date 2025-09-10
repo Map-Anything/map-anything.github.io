@@ -1,5 +1,5 @@
 function computeSceneZGeometricMean(scene) {
-    let log_z_sum = 1;
+    let log_z_sum = 0;  // Start with 0, not 1
     let count = 0;
 
     for (const mesh of scene.meshes) {
@@ -15,13 +15,23 @@ function computeSceneZGeometricMean(scene) {
                 BABYLON.Vector3.FromArray(positions, i),
                 matrix
             );
-            log_z_sum += Math.log(-pos.z);
-            count++;
+            // Only use vertices with negative Z (in front of camera)
+            if (pos.z < 0) {
+                log_z_sum += Math.log(-pos.z);
+                count++;
+            }
         }
     }
-    if (count === 0) return new BABYLON.Vector3(0, 0, 0);
+
+    // Return a fallback distance if no valid vertices found
+    if (count === 0) {
+        console.warn('computeSceneZGeometricMean: No valid vertices found, using fallback distance');
+        return 5.0;  // Return a reasonable default distance
+    }
 
     const zGeoMean = Math.exp(log_z_sum / count);
+    // DEBUG: Uncomment for camera positioning debugging
+    // console.log('computeSceneZGeometricMean: Calculated zGeoMean =', zGeoMean, 'from', count, 'vertices');
     return zGeoMean;
 }
 
@@ -42,14 +52,28 @@ function computeSceneBoundingBox(scene) {
 }
 
 function resetViewer(viewer) {
+    // DEBUG: Uncomment for resetViewer debugging
+    // console.log('resetViewer: Starting reset');
+    // console.log('resetViewer: Scene has', viewer.scene.meshes.length, 'meshes');
+    // viewer.scene.meshes.forEach((mesh, i) => {
+    //     console.log(`resetViewer: Mesh ${i}:`, mesh.name, 'vertices:', mesh.getTotalVertices(), 'visible:', mesh.isVisible);
+    // });
+
     // Reset the camera position and target
     const zGeoMean = computeSceneZGeometricMean(viewer.scene);
+    // DEBUG: Uncomment for camera positioning debugging
+    // console.log('resetViewer: zGeoMean =', zGeoMean);
+
     const center = new BABYLON.Vector3(0, 0, -zGeoMean)
+    // DEBUG: Uncomment for camera positioning debugging
+    // console.log('resetViewer: Camera target =', center);
     viewer.camera.setTarget(center);
 
     // const [boundingBoxMin, boundingBoxMax] = computeSceneBoundingBox(viewer.scene);
 
     const sceneSize = 3 * zGeoMean;
+    // DEBUG: Uncomment for camera positioning debugging
+    // console.log('resetViewer: sceneSize =', sceneSize);
     viewer.sceneSize = sceneSize;
     viewer.camera.radius = sceneSize / 2;
     viewer.camera.lowerRadiusLimit = 0.3 * sceneSize;
@@ -58,12 +82,25 @@ function resetViewer(viewer) {
     viewer.camera.alpha = 0.5 * Math.PI;
     viewer.camera.beta = 0.4 * Math.PI;
 
+    // DEBUG: Uncomment for camera positioning debugging
+    // console.log('resetViewer: Camera radius =', viewer.camera.radius);
+    // console.log('resetViewer: Camera position =', viewer.camera.position);
+
     // Set the material
-    const mesh = viewer.scene.meshes[1];
-    mesh.originalMaterial = mesh.material;
-    if (document.querySelector('#toggleTexturedGallery .toggle-left.active')) {
-        mesh.material = viewer.plainMaterial;
+    if (viewer.scene.meshes.length > 1) {
+        const mesh = viewer.scene.meshes[1];
+        // DEBUG: Uncomment for material debugging
+        // console.log('resetViewer: Setting material on mesh:', mesh.name);
+        mesh.originalMaterial = mesh.material;
+        if (document.querySelector('#toggleTexturedGallery .toggle-left.active')) {
+            mesh.material = viewer.plainMaterial;
+        }
+    } else {
+        console.warn('resetViewer: No mesh at index 1 to apply material to');
     }
+
+    // DEBUG: Uncomment for resetViewer debugging
+    // console.log('resetViewer: Reset complete');
 }
 
 function createAnnotationMaterial(scene) {
@@ -135,13 +172,19 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // Initialize the viewer with a default model
     const name = document.querySelector('#gallerySelectionPanel .selectable-image.selected').getAttribute('name');
+    const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
+    console.log('Loading initial GLB:', glbPath);
     clearAnnotations();
-    viewer.loadGLB(`static/gallery/${name}/mesh.glb`, () => { resetViewer(viewer) });
+    viewer.loadGLB(glbPath, () => { resetViewer(viewer) }, (error) => {
+        console.error('Failed to load GLB:', glbPath, error);
+    });
 });
 
 // Initialize the selection panel images
 $('#gallerySelectionPanel .selectable-image').each((i, img) => {
-    img.src = `static/gallery/${img.getAttribute('name')}/image.jpg`;
+    var name = img.getAttribute('name');
+    img.src = `static/qual_viz_outputs/${name}/${name}_input_images/view_0.png`;
+    console.log(img.src);
 })
 
 const gallerySelectionPanel = document.getElementById('gallerySelectionPanel');
@@ -157,10 +200,14 @@ gallerySelectionPanel.addEventListener('click', async function(event) {
     img.classList.add('selected');
 
     const name = img.getAttribute('name');
+    const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
+    console.log('Loading GLB on click:', glbPath);
 
     const viewer = canvas.viewer;
     clearAnnotations();
-    viewer.loadGLB(`static/gallery/${name}/mesh.glb`, () => { resetViewer(viewer) });
+    viewer.loadGLB(glbPath, () => { resetViewer(viewer) }, (error) => {
+        console.error('Failed to load GLB on click:', glbPath, error);
+    });
 });
 
 
