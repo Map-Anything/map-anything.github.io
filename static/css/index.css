@@ -227,12 +227,35 @@ body {
     background-color: rgba(38, 70, 126, 0.8);
     color: #ffffff;
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     font-size: 14px;
     font-weight: bold;
     z-index: 10;
-    /* disable text selection */
     user-select: none;
+}
+
+.model-label.dropdown {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="white" d="M6 8L0 2h12z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 25px;
+    min-width: 120px;
+}
+
+.model-label.dropdown:hover {
+    background-color: rgba(38, 70, 126, 0.9);
+}
+
+.model-label.dropdown option {
+    background-color: rgba(38, 70, 126, 0.95);
+    color: #ffffff;
+    padding: 5px;
 }
 
 
