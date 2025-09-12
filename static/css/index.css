@@ -621,3 +621,103 @@ model-viewer {
 canvas.babylon-model-viewer {
   outline: none;
 }
+
+/* Comparison Buttons Styles */
+.comparison-buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.comparison-method-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  gap: 20px;
+}
+
+.method-buttons-group {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+  justify-content: center;
+}
+
+.method-button {
+  flex: 1;
+  max-width: 120px;
+  padding: 10px 16px;
+  border: 2px solid #577cae;
+  border-radius: 8px;
+  background-color: #f1f3f5;
+  color: #4a7aa5;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.method-button:hover {
+  background-color: #4a7aa5;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.method-button.active {
+  background-color: #3a5c8f;
+  color: #ffffff;
+  border-color: #3a5c8f;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.method-button.active:hover {
+  background-color: #2a4c7f;
+  border-color: #2a4c7f;
+}
+
+/* Special styling for MapAnything buttons */
+.method-button[data-method="mapanything"] {
+  border-color: var(--mapanything-color);
+  color: var(--mapanything-color);
+}
+
+.method-button[data-method="mapanything"]:hover {
+  background-color: var(--mapanything-color);
+  color: #ffffff;
+}
+
+.method-button[data-method="mapanything"].active {
+  background-color: var(--mapanything-color);
+  border-color: var(--mapanything-color);
+  color: #ffffff;
+}
+
+.method-button[data-method="mapanything"].active:hover {
+  background-color: #e07f25;
+  border-color: #e07f25;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .comparison-method-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .method-buttons-group {
+    gap: 8px;
+  }
+
+  .method-button {
+    max-width: none;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

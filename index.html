@@ -371,31 +371,40 @@
           <h2 class="title is-4" style="font-weight: 700;">Qualitative Comparison</h2>
           <div class="content has-text-justified" style="align-self: flex-start;">
             <p>
-              We compare MapAnything with VGGT on various scenes.
+              We compare MapAnything with VGGT and PI3 on various scenes.
             </p>
           </div>
 
+          <!-- Method Selection Buttons -->
+          <div class="comparison-buttons-container">
+            <div class="comparison-method-buttons">
+              <div class="method-buttons-group">
+                <button id="methodBtn1_mapanything" class="method-button active" data-method="mapanything"
+                  data-viewer="1">MapAnything</button>
+                <button id="methodBtn1_vggt" class="method-button" data-method="vggt" data-viewer="1">VGGT</button>
+                <button id="methodBtn1_pi3" class="method-button" data-method="pi3" data-viewer="1">PI3</button>
+              </div>
+              <div class="method-buttons-group">
+                <button id="methodBtn2_mapanything" class="method-button" data-method="mapanything"
+                  data-viewer="2">MapAnything</button>
+                <button id="methodBtn2_vggt" class="method-button active" data-method="vggt"
+                  data-viewer="2">VGGT</button>
+                <button id="methodBtn2_pi3" class="method-button" data-method="pi3" data-viewer="2">PI3</button>
+              </div>
+            </div>
+          </div>
+
           <div class="model-container" id="model-compare-wrapper">
-            <!-- Model 1 Viewer with Method Selector -->
+            <!-- Model 1 Viewer -->
             <div class="model-wrapper-comparison">
-              <select id="methodSelector1" class="model-label dropdown">
-                <option value="mapanything" style="color: var(--mapanything-color);">MapAnything</option>
-                <option value="vggt">VGGT</option>
-                <option value="pi3">PI3</option>
-              </select>
               <model-viewer id="modelViewerComparison1" loading="eager" touch-action="pan-y" environment-image="legacy"
                 src="" zoom-sensitivity="0.05" camera-controls disable-tap min-camera-orbit="auto auto 0.01m"
                 max-camera-orbit="auto auto 500m" interaction-prompt="none" shadow-intensity="0" ar
                 style="width: 100%; height: 100%;  background: #ffffff;">
               </model-viewer>
             </div>
-            <!-- Model 2 Viewer with Method Selector -->
+            <!-- Model 2 Viewer -->
             <div class="model-wrapper-comparison">
-              <select id="methodSelector2" class="model-label dropdown">
-                <option value="mapanything" style="color: var(--mapanything-color);">MapAnything</option>
-                <option value="vggt" selected>VGGT</option>
-                <option value="pi3">PI3</option>
-              </select>
               <model-viewer id="modelViewerComparison2" loading="eager" touch-action="pan-y" environment-image="legacy"
                 src="" zoom-sensitivity="0.05" camera-controls disable-tap min-camera-orbit="auto auto 0.01m"
                 max-camera-orbit="auto auto 500m" interaction-prompt="none" shadow-intensity="0" ar

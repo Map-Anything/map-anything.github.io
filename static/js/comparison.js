@@ -39,11 +39,15 @@ const comparisonExpectedCounts = {
     'window': 2
 };
 
-// Initialize the comparison functionality with method selectors
+// Initialize the comparison functionality with method buttons
 function initializeComparisonSelection() {
     const selectionPanel = document.getElementById('comparisonSelectionPanel');
-    const methodSelector1 = document.getElementById('methodSelector1');
-    const methodSelector2 = document.getElementById('methodSelector2');
+    const methodButtons1 = document.querySelectorAll('[data-viewer="1"]');
+    const methodButtons2 = document.querySelectorAll('[data-viewer="2"]');
+
+    // Store current method selections
+    let currentMethod1 = 'mapanything';
+    let currentMethod2 = 'vggt';
 
     // Function to update a model viewer with a new GLB file
     function updateModelViewer(viewer, src) {
@@ -63,11 +67,10 @@ function initializeComparisonSelection() {
         if (!selectedScene) return;
 
         const sceneName = selectedScene.getAttribute('name');
-        const method1 = methodSelector1.value;
-        const path1 = `static/qual_comparison_outputs/${sceneName}/${sceneName}_${method1}_output.glb`;
+        const path1 = `static/qual_comparison_outputs/${sceneName}/${sceneName}_${currentMethod1}_output.glb`;
 
         updateModelViewer(modelViewerComparison1, path1);
-        console.log(`Updated viewer 1: ${method1} for scene ${sceneName}`);
+        console.log(`Updated viewer 1: ${currentMethod1} for scene ${sceneName}`);
     }
 
     // Function to update viewer 2 based on current selections
@@ -76,11 +79,10 @@ function initializeComparisonSelection() {
         if (!selectedScene) return;
 
         const sceneName = selectedScene.getAttribute('name');
-        const method2 = methodSelector2.value;
-        const path2 = `static/qual_comparison_outputs/${sceneName}/${sceneName}_${method2}_output.glb`;
+        const path2 = `static/qual_comparison_outputs/${sceneName}/${sceneName}_${currentMethod2}_output.glb`;
 
         updateModelViewer(modelViewerComparison2, path2);
-        console.log(`Updated viewer 2: ${method2} for scene ${sceneName}`);
+        console.log(`Updated viewer 2: ${currentMethod2} for scene ${sceneName}`);
     }
 
     // Function to update both viewers (used when scene changes)
@@ -89,9 +91,33 @@ function initializeComparisonSelection() {
         updateViewer2();
     }
 
-    // Handle method selector changes - each dropdown only updates its own viewer
-    methodSelector1.addEventListener('change', updateViewer1);
-    methodSelector2.addEventListener('change', updateViewer2);
+    // Handle method button clicks for viewer 1
+    methodButtons1.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all viewer 1 buttons
+            methodButtons1.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Update current method and viewer
+            currentMethod1 = button.getAttribute('data-method');
+            updateViewer1();
+        });
+    });
+
+    // Handle method button clicks for viewer 2
+    methodButtons2.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all viewer 2 buttons
+            methodButtons2.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Update current method and viewer
+            currentMethod2 = button.getAttribute('data-method');
+            updateViewer2();
+        });
+    });
 
     // Store the function for external use
     window.updateBothViewers = updateBothViewers;
