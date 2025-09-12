@@ -139,6 +139,7 @@ function clearAnnotations() {
 
 
 window.addEventListener("DOMContentLoaded", () => {
+    console.log("Results.js DOMContentLoaded");
     const viewer = canvas.viewer;
 
     viewer.selectedPoints = [];
@@ -184,105 +185,37 @@ window.addEventListener("DOMContentLoaded", () => {
     viewer.loadGLB(glbPath, () => { resetViewer(viewer) }, (error) => {
         console.error('Failed to load GLB:', glbPath, error);
     });
-});
 
-// Initialize the selection panel images with hover cycling functionality
-$('#gallerySelectionPanel .selectable-image').each((i, img) => {
-    var name = img.getAttribute('name');
-    img.src = `static/qual_viz_outputs/${name}/${name}_input_images/view_0.png`;
-
-    let currentImageIndex = 0;
-    let cyclingInterval = null;
-    let availableImages = [];
-    let isDiscovering = false;
-
-    // Pre-populate available images based on common patterns to avoid 404s
-    const discoverImages = () => {
-        if (isDiscovering) return; // Prevent multiple discoveries
-        isDiscovering = true;
-
-        availableImages = [];
-
-        // Common image counts for different datasets - adjust these based on your actual data
-        const expectedCounts = {
-            'basketball': 2,
-            'basti_desk': 2,
-            'dino': 3,
-            'grindelwald': 4,
-            'jpl_mars_yard': 6,
-            'kpi': 3,
-            'mt_washington': 5,
-            'painting': 2,
-            'panda_wildwest': 4
-        };
-
-        // Use expected count if available, otherwise try up to 10 images
-        const maxImages = expectedCounts[name] || 10;
-
-        // Pre-populate the available images array without testing
-        for (let i = 0; i < maxImages; i++) {
-            availableImages.push(`static/qual_viz_outputs/${name}/${name}_input_images/view_${i}.png`);
-        }
-
-        console.log(`Pre-loaded ${availableImages.length} images for ${name}`);
-        isDiscovering = false;
+    // Initialize the results selection panel with consistent image selection functionality
+    const resultsExpectedCounts = {
+        'basketball': 2,
+        'basti_desk': 2,
+        'dino': 3,
+        'grindelwald': 3,
+        'jpl_mars_yard': 6,
+        'kpi': 2,
+        'mt_washington': 4,
+        'painting': 1,
+        'panda_wildwest': 1
     };
 
-    // Initialize images immediately on page load
-    discoverImages();
+    initializeImageSelection(
+        '#gallerySelectionPanel',
+        'static/qual_viz_outputs/{name}/{name}_input_images/view_{i}.png',
+        resultsExpectedCounts
+    );
 
-    // Add hover event listeners
-    $(img).on('mouseenter', function() {
-        // Since images are already discovered, just start cycling if we have multiple images
-        if (availableImages.length > 1) {
-            startCycling();
-        }
+    // Set up click functionality using the shared utility
+    initializeImageSelectionClick('#gallerySelectionPanel', (selectedImg) => {
+        const name = selectedImg.getAttribute('name');
+        const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
+        // console.log('Loading GLB on click:', glbPath);
 
-        function startCycling() {
-            if (cyclingInterval) return; // Already cycling
-
-            currentImageIndex = 0;
-            // Start with the first image displayed for full duration
-            img.src = availableImages[currentImageIndex];
-
-            cyclingInterval = setInterval(() => {
-                currentImageIndex = (currentImageIndex + 1) % availableImages.length;
-                img.src = availableImages[currentImageIndex];
-            }, 250); // Change image every 250ms for even faster cycling
-        }
-    });
-
-    $(img).on('mouseleave', function() {
-        if (cyclingInterval) {
-            clearInterval(cyclingInterval);
-            cyclingInterval = null;
-        }
-        // Reset to first image
-        currentImageIndex = 0;
-        img.src = `static/qual_viz_outputs/${name}/${name}_input_images/view_0.png`;
-    });
-});
-
-const gallerySelectionPanel = document.getElementById('gallerySelectionPanel');
-gallerySelectionPanel.addEventListener('click', async function(event) {
-    const img = event.target.closest('.selectable-image');
-
-    if (!img || img.classList.contains('selected'))
-        return;
-
-    gallerySelectionPanel.querySelectorAll('.selectable-image').forEach(function(image) {
-        image.classList.remove('selected');
-    });
-    img.classList.add('selected');
-
-    const name = img.getAttribute('name');
-    const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
-    // console.log('Loading GLB on click:', glbPath);
-
-    const viewer = canvas.viewer;
-    clearAnnotations();
-    viewer.loadGLB(glbPath, () => { resetViewer(viewer) }, (error) => {
-        console.error('Failed to load GLB on click:', glbPath, error);
+        const viewer = canvas.viewer;
+        clearAnnotations();
+        viewer.loadGLB(glbPath, () => { resetViewer(viewer) }, (error) => {
+            console.error('Failed to load GLB on click:', glbPath, error);
+        });
     });
 });
 

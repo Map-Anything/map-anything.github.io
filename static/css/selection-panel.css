@@ -66,15 +66,5 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-#comparisonSelectionPanel .selectable-image {
-  flex: 0 1 0;
-  border-radius: 10px;
-  border: 0.5px solid #ccc;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-  max-height: 50%;
-  object-fit: contain;
-  padding: 1px;
-  background-color: #dde9f7;
-  margin: 1% 5px 1% 5px;
-  cursor: pointer;
-}
+/* Remove the separate rules for comparisonSelectionPanel to ensure consistency */
+/* All selectable images will now use the same styling */

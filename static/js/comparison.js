@@ -1,7 +1,7 @@
 const modelViewerComparison1 = document.querySelector("model-viewer#modelViewerComparison1");
 const modelViewerComparison2 = document.querySelector("model-viewer#modelViewerComparison2");
 
-// Define the list of comparison scenes
+// Define the list of comparison scenes (these should match the img name attributes in HTML)
 const comparisonScenes = [
     'peter_scenic',
     'panda',
@@ -20,103 +20,41 @@ const comparisonScenes = [
     'window',
 ];
 
-// Initialize the comparison selection panel images with hover cycling functionality
-function initializeComparisonPanel() {
-    const selectionPanel = document.getElementById('comparisonSelectionPanel');
+// Initialize the comparison selection panel with consistent image selection functionality (same as results.js)
+const comparisonExpectedCounts = {
+    'peter_scenic': 2,
+    'panda': 1,
+    'aachen_night_spring': 2,
+    'berlin': 2,
+    'drifting': 7,
+    'jpl_mars_yard': 6,
+    'lake_statue': 2,
+    'lion_mirror': 4,
+    'mt_washington': 4,
+    'night_iphone_robot_vid': 7,
+    'night_temple': 2,
+    'park_sisters_statue': 2,
+    'skyscraper': 4,
+    'vatutin': 2,
+    'window': 2
+};
 
-    // Clear existing content
-    selectionPanel.innerHTML = '';
-
-    // Create images for each scene
-    comparisonScenes.forEach((name, index) => {
-        const img = document.createElement('img');
-        img.className = 'selectable-image';
-        img.setAttribute('name', name);
-        img.src = `static/qual_comparison_outputs/${name}/${name}_input_images/view_0.png`;
-
-        // Make first image selected by default
-        if (index === 0) {
-            img.classList.add('selected');
-        }
-
-        selectionPanel.appendChild(img);
-
-        // Add hover cycling functionality (similar to gallery.js)
-        let currentImageIndex = 0;
-        let cyclingInterval = null;
-        let availableImages = [];
-        let isDiscovering = false;
-
-        // Pre-populate available images based on common patterns
-        const discoverImages = () => {
-            if (isDiscovering) return;
-            isDiscovering = true;
-
-            availableImages = [];
-
-            // Try up to 10 images for each scene
-            const maxImages = 10;
-            for (let i = 0; i < maxImages; i++) {
-                availableImages.push(`static/qual_comparison_outputs/${name}/${name}_input_images/view_${i}.png`);
-            }
-
-            console.log(`Pre-loaded ${availableImages.length} images for ${name}`);
-            isDiscovering = false;
-        };
-
-        // Initialize images
-        discoverImages();
-
-        // Add hover event listeners
-        img.addEventListener('mouseenter', function() {
-            if (availableImages.length > 1) {
-                startCycling();
-            }
-
-            function startCycling() {
-                if (cyclingInterval) return;
-
-                currentImageIndex = 0;
-                img.src = availableImages[currentImageIndex];
-
-                cyclingInterval = setInterval(() => {
-                    currentImageIndex = (currentImageIndex + 1) % availableImages.length;
-                    img.src = availableImages[currentImageIndex];
-                }, 250);
-            }
-        });
-
-        img.addEventListener('mouseleave', function() {
-            if (cyclingInterval) {
-                clearInterval(cyclingInterval);
-                cyclingInterval = null;
-            }
-            // Reset to first image
-            currentImageIndex = 0;
-            img.src = `static/qual_comparison_outputs/${name}/${name}_input_images/view_0.png`;
-        });
-    });
-}
-
-// Handle comparison panel clicks and method selection
+// Initialize the comparison functionality with method selectors
 function initializeComparisonSelection() {
     const selectionPanel = document.getElementById('comparisonSelectionPanel');
     const methodSelector1 = document.getElementById('methodSelector1');
     const methodSelector2 = document.getElementById('methodSelector2');
 
-    // Function to update a model viewer with camera settings
-    function updateModelViewer(viewer, path) {
-        viewer.src = path;
-        // Set camera at origin with fixed position, closer to origin
-        viewer.cameraTarget = "0m 0m 0m";
-        viewer.cameraOrbit = "0deg 80deg 15m";
-        if (viewer.resetTurntableRotation) {
-            viewer.resetTurntableRotation(0);
+    // Function to update a model viewer with a new GLB file
+    function updateModelViewer(viewer, src) {
+        if (viewer && src) {
+            viewer.src = src;
+            viewer.addEventListener('load', () => {
+                viewer.cameraTarget = "0m 0m 0m";
+                viewer.cameraOrbit = "0deg 80deg 15m";
+                viewer.jumpCameraToGoal();
+            }, { once: true });
         }
-        // Wait for the model to load before positioning camera
-        viewer.addEventListener('load', () => {
-            viewer.jumpCameraToGoal();
-        }, { once: true });
     }
 
     // Function to update viewer 1 based on current selections
@@ -151,25 +89,6 @@ function initializeComparisonSelection() {
         updateViewer2();
     }
 
-    // Handle scene selection clicks
-    selectionPanel.addEventListener('click', function(event) {
-        const img = event.target.closest('.selectable-image');
-
-        if (!img || img.classList.contains('selected'))
-            return;
-
-        // Remove selected class from all images
-        selectionPanel.querySelectorAll('.selectable-image').forEach(function(image) {
-            image.classList.remove('selected');
-        });
-
-        // Add selected class to clicked image
-        img.classList.add('selected');
-
-        // Load models for the new scene (both viewers)
-        updateBothViewers();
-    });
-
     // Handle method selector changes - each dropdown only updates its own viewer
     methodSelector1.addEventListener('change', updateViewer1);
     methodSelector2.addEventListener('change', updateViewer2);
@@ -180,8 +99,22 @@ function initializeComparisonSelection() {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    initializeComparisonPanel();
     initializeComparisonSelection();
+
+    // Initialize the comparison selection panel with consistent image selection functionality (same as results.js)
+    initializeImageSelection(
+        '#comparisonSelectionPanel',
+        'static/qual_comparison_outputs/{name}/{name}_input_images/view_{i}.png',
+        comparisonExpectedCounts
+    );
+
+    // Set up click functionality using the shared utility (same pattern as results.js)
+    initializeImageSelectionClick('#comparisonSelectionPanel', (selectedImg) => {
+        // Update both model viewers for the new scene
+        if (window.updateBothViewers) {
+            window.updateBothViewers();
+        }
+    });
 
     // Load initial models for the first scene with proper camera positioning
     if (comparisonScenes.length > 0) {

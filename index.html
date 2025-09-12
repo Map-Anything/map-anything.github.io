@@ -41,7 +41,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -326,7 +326,7 @@
           </div>
 
 
-          <section class="hero is-light">
+          <section class="hero">
             <div class="container is-max-desktop" style="width: 100%;">
 
               <div class="model-wrapper" style="width: 100%; aspect-ratio: 1.4/1;">
@@ -384,9 +384,9 @@
                 <option value="pi3">PI3</option>
               </select>
               <model-viewer id="modelViewerComparison1" loading="eager" touch-action="pan-y" environment-image="legacy"
-                src="" zoom-sensitivity="0.05" camera-controls disable-tap
-                min-camera-orbit="auto auto 0.01m" max-camera-orbit="auto auto 500m" interaction-prompt="none"
-                shadow-intensity="0" ar style="width: 100%; height: 100%;  background: #ffffff;">
+                src="" zoom-sensitivity="0.05" camera-controls disable-tap min-camera-orbit="auto auto 0.01m"
+                max-camera-orbit="auto auto 500m" interaction-prompt="none" shadow-intensity="0" ar
+                style="width: 100%; height: 100%;  background: #ffffff;">
               </model-viewer>
             </div>
             <!-- Model 2 Viewer with Method Selector -->
@@ -397,15 +397,29 @@
                 <option value="pi3">PI3</option>
               </select>
               <model-viewer id="modelViewerComparison2" loading="eager" touch-action="pan-y" environment-image="legacy"
-                src="" zoom-sensitivity="0.05" camera-controls disable-tap
-                min-camera-orbit="auto auto 0.01m" max-camera-orbit="auto auto 500m" interaction-prompt="none"
-                shadow-intensity="0" ar style="width: 100%; height: 100%; background: #ffffff;">
+                src="" zoom-sensitivity="0.05" camera-controls disable-tap min-camera-orbit="auto auto 0.01m"
+                max-camera-orbit="auto auto 500m" interaction-prompt="none" shadow-intensity="0" ar
+                style="width: 100%; height: 100%; background: #ffffff;">
               </model-viewer>
             </div>
           </div>
           <div id="comparisonSelectionPanel" class="selection-panel"
             style="width: 100%; aspect-ratio: 3.4/1; margin-bottom: 1em;">
-            <!-- Images will be populated by JavaScript -->
+            <img class="selectable-image selected" name="peter_scenic">
+            <img class="selectable-image" name="panda">
+            <img class="selectable-image" name="aachen_night_spring">
+            <img class="selectable-image" name="berlin">
+            <img class="selectable-image" name="drifting">
+            <img class="selectable-image" name="jpl_mars_yard">
+            <img class="selectable-image" name="lake_statue">
+            <img class="selectable-image" name="lion_mirror">
+            <img class="selectable-image" name="mt_washington">
+            <img class="selectable-image" name="night_iphone_robot_vid">
+            <img class="selectable-image" name="night_temple">
+            <img class="selectable-image" name="park_sisters_statue">
+            <img class="selectable-image" name="skyscraper">
+            <img class="selectable-image" name="vatutin">
+            <img class="selectable-image" name="window">
           </div>
 
         </div>
@@ -500,10 +514,8 @@
     </div>
   </footer>
   <script src="static/js/babylon-model-viewer.js"></script>
-  <script src="static/js/gallery.js"></script>
-  <script src="static/js/selection-panel.js"></script>
-
-
+  <script src="static/js/image-selection.js"></script>
+  <script src="static/js/results.js"></script>
   <script src="static/js/comparison.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
