@@ -17,7 +17,7 @@
   <meta name="keywords"
     content="MapAnything, 3D reconstruction, Image-to-3D, Depth Estimation, End-to-end geometric network">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="image" content="https://map-anything.github.io/resources/teaser.jpg">
+  <meta name="image" content="https://map-anything.github.io/static/MapAnything_Teaser.jpg">
   <title>MapAnything: Universal Feed-Forward Metric 3D Reconstruction</title>
 
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -288,10 +288,10 @@
 
           <div class="content has-text-centered">
             <!-- Teaser Collage -->
-            <img id="teaser-collage" src="./resources/todo.webp" alt="Teaser Collage"
-              style="width: 100%; margin-bottom: 0.5rem;">
+            <!-- <img id="teaser-collage" src="./resources/todo.webp" alt="Teaser Collage"
+              style="width: 100%; margin-bottom: 0.5rem;"> -->
             <p style="margin-bottom: 1.5rem;">
-              TODO
+              Teaser TODO
             </p>
 
           </div>
@@ -299,20 +299,35 @@
           <h2 class="title is-4" style="font-weight: 700;">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              TODO
+              We introduce MapAnything, a unified transformer-based feed-forward model that ingests one or more images
+              along with optional geometric inputs such as camera intrinsics, poses, depth, or partial reconstructions,
+              and then directly regresses the metric 3D scene geometry and cameras.
+              MapAnything leverages a factored representation of multi-view scene geometry, \ie, a collection of depth
+              maps, local ray maps, camera poses, and a metric scale factor that effectively upgrades local
+              reconstructions into a globally consistent metric frame.
+              Standardizing the supervision and training across diverse datasets, along with flexible input
+              augmentation, enables MapAnything to address a broad range of 3D vision tasks in a single feed-forward
+              pass, including uncalibrated structure-from-motion, calibrated multi-view stereo, monocular depth
+              estimation, camera localization, depth completion, and more.
+              We provide extensive experimental analyses and model ablations demonstrating that MapAnything outperforms
+              or matches specialist feed-forward models while offering more efficient joint training behavior, thus
+              paving the way toward a universal 3D reconstruction backbone.
             </p>
+          </div>
+          <div class="content has-text-centered">
+            <!-- <img id="teaser" src="https://placehold.co/600x400" alt="Teaser image" style="width: 100%;"> -->
+            <img id="architecture-img" src="./static/MapAnything_Teaser.jpg" alt="Teaser">
           </div>
           <br>
 
           <h2 class="title is-4" style="font-weight: 700;">Method</h2>
           <div class="content has-text-justified">
             <p>
-              TODO
             </p>
           </div>
           <div class="content has-text-centered">
             <!-- <img id="teaser" src="https://placehold.co/600x400" alt="Teaser image" style="width: 100%;"> -->
-            <img id="architecture-img" src="./resources/mapanything_method.png" alt="Architecture">
+            <img id="architecture-img" src="./static/MapAnything_Method.jpg" alt="Method">
           </div>
 
           <br>
@@ -369,7 +384,7 @@
           <br>
 
           <h2 class="title is-4" style="font-weight: 700;">Qualitative Comparison</h2>
-          <div class="content has-text-justified" style="align-self: flex-start;">
+          <div class="content has-text-centered" style="align-self: flex-start;">
             <p>
               We compare MapAnything with VGGT and PI3 on various scenes.
             </p>
