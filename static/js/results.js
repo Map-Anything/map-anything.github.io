@@ -138,7 +138,7 @@ window.addEventListener("DOMContentLoaded", () => {
         };
 
         // Create a sphere at the picked point
-        const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: viewer.sceneSize / 50 }, viewer.scene);
+        const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: viewer.sceneSize / 100 }, viewer.scene);
         sphere.position = pickedPoint;
         sphere.material = viewer.annotationMaterial;
 
@@ -149,7 +149,7 @@ window.addEventListener("DOMContentLoaded", () => {
             // Create a thicker line between the two selected points using a tube
             const tube = BABYLON.MeshBuilder.CreateTube("tube", {
                 path: [viewer.selectedPoints[0], viewer.selectedPoints[1]],
-                radius: viewer.sceneSize / 200,  // Make the line much thicker
+                radius: viewer.sceneSize / 400,  // Half the line thickness
                 tessellation: 8
             }, canvas.viewer.scene);
             tube.material = viewer.annotationMaterial;
@@ -194,16 +194,42 @@ window.addEventListener("DOMContentLoaded", () => {
         resultsExpectedCounts
     );
 
-    // Set up click functionality using the shared utility
-    initializeImageSelectionClick('#gallerySelectionPanel', (selectedImg) => {
-        const name = selectedImg.getAttribute('name');
+    // Set up custom click functionality with proper highlighting synchronization
+    const selectionPanel = document.querySelector('#gallerySelectionPanel');
+    selectionPanel.addEventListener('click', function(event) {
+        const img = event.target.closest('.selectable-image');
+          
+        if (!img) return;
+          
+        const name = img.getAttribute('name');
         const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
-        // console.log('Loading GLB on click:', glbPath);
-
         const viewer = canvas.viewer;
+          
+        // Prevent multiple simultaneous loads - DON'T change highlighting if blocked
+        if (viewer.isLoading) {
+            console.log('GLB already loading, ignoring click');
+            return; // Exit early, don't change highlighting
+        }
+          
+        // If we get here, the load will proceed, so update highlighting
+        selectionPanel.querySelectorAll('.selectable-image').forEach(function(image) {
+            image.classList.remove('selected');
+        });
+        img.classList.add('selected');
+          
+        viewer.isLoading = true;
         clearAnnotations();
-        viewer.loadGLB(glbPath, () => { resetViewer(viewer) }, (error) => {
+          
+        // Clear all meshes immediately before loading new one
+        viewer.clearMeshes();
+        viewer.clearMaterials();
+          
+        viewer.loadGLB(glbPath, () => { 
+            resetViewer(viewer);
+            viewer.isLoading = false;
+        }, (error) => {
             console.error('Failed to load GLB on click:', glbPath, error);
+            viewer.isLoading = false;
         });
     });
 });
