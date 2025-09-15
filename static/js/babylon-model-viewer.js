@@ -3,14 +3,14 @@ class BabylonModelViewer {
         this.canvas = canvas;
         this.engine = new BABYLON.Engine(canvas, true);
         this.scene = new BABYLON.Scene(this.engine);
-        this.scene.clearColor = new BABYLON.Color4(0.95, 0.95, 0.95, 1.0);
+        this.scene.clearColor = new BABYLON.Color4(1.0, 1.0, 1.0, 1.0);
 
         this.camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero(), this.scene);
         this.camera.attachControl(canvas, true);
-        this.scene.ambientColor = new BABYLON.Color3(0.3, 0.3, 0.3);
+        this.scene.ambientColor = new BABYLON.Color3(1.0, 1.0, 1.0);
 
-        this.light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), this.scene);
-        this.light.intensity = 2;
+        this.light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 0, 1), this.scene);
+        this.light.intensity = 4;
 
         this._PointerDownPos = null;
 
@@ -71,8 +71,6 @@ class BabylonModelViewer {
         this.clearMeshes();
         this.clearMaterials();
 
-        // DEBUG: Uncomment for GLB loading debugging
-        // console.log('BabylonModelViewer: Attempting to load GLB:', fileUrl);
 
         // Load the glb file
         BABYLON.SceneLoader.Append(
@@ -80,8 +78,6 @@ class BabylonModelViewer {
             fileUrl,
             this.scene,
             () => {
-                // DEBUG: Uncomment for GLB loading debugging
-                // console.log('BabylonModelViewer: Successfully loaded GLB:', fileUrl);
                 if (onSuccess) onSuccess();
             },
             null, // onProgress callback

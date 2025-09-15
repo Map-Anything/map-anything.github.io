@@ -30,8 +30,6 @@ function computeSceneZGeometricMean(scene) {
     }
 
     const zGeoMean = Math.exp(log_z_sum / count);
-    // DEBUG: Uncomment for camera positioning debugging
-    // console.log('computeSceneZGeometricMean: Calculated zGeoMean =', zGeoMean, 'from', count, 'vertices');
     return zGeoMean;
 }
 
@@ -52,17 +50,9 @@ function computeSceneBoundingBox(scene) {
 }
 
 function resetViewer(viewer) {
-    // DEBUG: Uncomment for resetViewer debugging
-    // console.log('resetViewer: Starting reset');
-    // console.log('resetViewer: Scene has', viewer.scene.meshes.length, 'meshes');
-    // viewer.scene.meshes.forEach((mesh, i) => {
-    //     console.log(`resetViewer: Mesh ${i}:`, mesh.name, 'vertices:', mesh.getTotalVertices(), 'visible:', mesh.isVisible);
-    // });
 
     // Reset the camera position and target
     const zGeoMean = computeSceneZGeometricMean(viewer.scene);
-    // DEBUG: Uncomment for camera positioning debugging
-    // console.log('resetViewer: zGeoMean =', zGeoMean);
 
     const center = new BABYLON.Vector3(0, 0, -zGeoMean)
     // DEBUG: Uncomment for camera positioning debugging
@@ -93,14 +83,9 @@ function resetViewer(viewer) {
     // console.log('resetViewer: Camera radius =', viewer.camera.radius);
     // console.log('resetViewer: Camera position =', viewer.camera.position);
 
-    // Set the material (always use textured/original material)
+    // Set the material (use plain neutral material)
     if (viewer.scene.meshes.length > 1) {
         const mesh = viewer.scene.meshes[1];
-        // DEBUG: Uncomment for material debugging
-        // console.log('resetViewer: Setting material on mesh:', mesh.name);
-        mesh.originalMaterial = mesh.material;
-        // Always use the original textured material
-        mesh.material = mesh.originalMaterial;
     } else {
         console.warn('resetViewer: No mesh at index 1 to apply material to');
     }
@@ -117,13 +102,6 @@ function createAnnotationMaterial(scene) {
     return material;
 }
 
-function createPlainMaterial(scene) {
-    const material = new BABYLON.StandardMaterial("sphereMaterial", scene);
-    material.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4);
-    material.specularColor = new BABYLON.Color3(0.2, 0.2, 0.2);
-    material.ambientColor = new BABYLON.Color3(0.5, 0.5, 0.5);
-    return material;
-}
 
 
 const canvas = document.getElementById("renderCanvas");
@@ -146,7 +124,6 @@ window.addEventListener("DOMContentLoaded", () => {
     viewer.annotationMeshes = [];
 
     viewer.annotationMaterial = createAnnotationMaterial(viewer.scene);
-    viewer.plainMaterial = createPlainMaterial(viewer.scene);
 
     viewer.onClickPick = (pickResult) => {
         const pickedPoint = pickResult.pickedPoint;
