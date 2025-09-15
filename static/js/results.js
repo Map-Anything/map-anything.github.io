@@ -96,23 +96,27 @@ function resetViewer(viewer) {
 
 function createAnnotationMaterial(scene) {
     const material = new BABYLON.StandardMaterial("sphereMaterial", scene);
-    material.emissiveColor = new BABYLON.Color3(1, 0, 0);
+    // Use MapAnything orange color #f08f35 (converted to RGB: r=240/255, g=143/255, b=53/255)
+    material.emissiveColor = new BABYLON.Color3(240/255, 143/255, 53/255);
     material.diffuseColor = new BABYLON.Color3(0, 0, 0);
-    material.specularColor = new BABYLON.Color3(0.2, 0.2, 0.2);
+    material.specularColor = new BABYLON.Color3(0, 0, 0); // Remove white specular highlights
+    material.specularPower = 0; // Further disable specular reflections
     return material;
 }
 
 
 
 const canvas = document.getElementById("renderCanvas");
-const measureTextBox = document.getElementById("measureTextBox");
-
 
 function clearAnnotations() {
     const viewer = canvas.viewer;
     viewer.annotationMeshes.forEach(mesh => mesh.dispose());
     viewer.selectedPoints = [];
-    measureTextBox.innerHTML = "Pick two points to measure the distance.";
+    // Reset the distance display
+    const distanceDisplay = document.getElementById("distanceDisplay");
+    if (distanceDisplay) {
+        distanceDisplay.innerHTML = "Click two points to measure distance";
+    }
 }
 
 
@@ -134,7 +138,7 @@ window.addEventListener("DOMContentLoaded", () => {
         };
 
         // Create a sphere at the picked point
-        const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: viewer.sceneSize / 200 }, viewer.scene);
+        const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: viewer.sceneSize / 50 }, viewer.scene);
         sphere.position = pickedPoint;
         sphere.material = viewer.annotationMaterial;
 
@@ -142,15 +146,23 @@ window.addEventListener("DOMContentLoaded", () => {
         viewer.annotationMeshes.push(sphere);
 
         if (viewer.selectedPoints.length === 2) {
-            // Create a line between the two selected points
-            const line = BABYLON.MeshBuilder.CreateLines("line", {
-                points: [viewer.selectedPoints[0], viewer.selectedPoints[1]]
+            // Create a thicker line between the two selected points using a tube
+            const tube = BABYLON.MeshBuilder.CreateTube("tube", {
+                path: [viewer.selectedPoints[0], viewer.selectedPoints[1]],
+                radius: viewer.sceneSize / 200,  // Make the line much thicker
+                tessellation: 8
             }, canvas.viewer.scene);
-            line.material = viewer.annotationMaterial;
-            viewer.annotationMeshes.push(line);
+            tube.material = viewer.annotationMaterial;
+            viewer.annotationMeshes.push(tube);
 
             const distance = BABYLON.Vector3.Distance(viewer.selectedPoints[0], viewer.selectedPoints[1]);
-            measureTextBox.innerHTML = "Distance: " + distance.toFixed(2) + " m";
+
+            // Display the distance in the UI element
+            const distanceDisplay = document.getElementById("distanceDisplay");
+            if (distanceDisplay) {
+                distanceDisplay.innerHTML = `Distance: ${distance.toFixed(2)} meters`;
+            }
+            console.log("Distance: " + distance.toFixed(2) + " m");
         }
     }
 

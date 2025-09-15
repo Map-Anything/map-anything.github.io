@@ -1,12 +1,32 @@
 class BabylonModelViewer {
     constructor(canvas) {
         this.canvas = canvas;
-        this.engine = new BABYLON.Engine(canvas, true);
+        // Enable mobile-friendly engine options
+        const engineOptions = {
+            preserveDrawingBuffer: true,
+            stencil: true,
+            antialias: true,
+            alpha: false,
+            failIfMajorPerformanceCaveat: false
+        };
+        this.engine = new BABYLON.Engine(canvas, true, engineOptions);
         this.scene = new BABYLON.Scene(this.engine);
         this.scene.clearColor = new BABYLON.Color4(1.0, 1.0, 1.0, 1.0);
 
         this.camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 2, 10, BABYLON.Vector3.Zero(), this.scene);
+
+        // Enhanced mobile-friendly camera setup
         this.camera.attachControl(canvas, true);
+        this.camera.inputs.attached.pointers.buttons = [0, 1, 2]; // Support all mouse buttons
+        this.camera.inputs.attached.pointers.angularSensibilityX = 1000;
+        this.camera.inputs.attached.pointers.angularSensibilityY = 1000;
+        this.camera.inputs.attached.pointers.panningSensibility = 1000;
+
+        // Enable touch support explicitly for mobile
+        if (this.camera.inputs.attached.pointers) {
+            this.camera.inputs.attached.pointers.multiTouchPanning = true;
+            this.camera.inputs.attached.pointers.multiTouchPanAndZoom = true;
+        }
         this.scene.ambientColor = new BABYLON.Color3(1.0, 1.0, 1.0);
 
         this.light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 0, 1), this.scene);
@@ -52,6 +72,43 @@ class BabylonModelViewer {
         }, { passive: false });
 
         canvas.addEventListener("contextmenu", (evt) => evt.preventDefault());
+
+        // Add comprehensive mobile touch event handling
+        this.setupMobileTouchEvents(canvas);
+    }
+
+    setupMobileTouchEvents(canvas) {
+        // Prevent default touch behaviors that interfere with 3D interaction
+        canvas.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+        }, { passive: false });
+
+        canvas.addEventListener("touchend", (e) => {
+            e.preventDefault();
+        }, { passive: false });
+
+        // Additional mobile-specific setup
+        if (typeof window !== 'undefined' && 'ontouchstart' in window) {
+            // Mobile device detected - configure for better touch handling
+            if (this.camera.inputs.attached.pointers) {
+                const pointerInput = this.camera.inputs.attached.pointers;
+
+                // Optimize for touch
+                pointerInput.angularSensibilityX = 500;  // Make rotation more responsive on mobile
+                pointerInput.angularSensibilityY = 500;
+                pointerInput.panningSensibility = 500;   // Make panning more responsive
+
+                // Enable multi-touch gestures
+                pointerInput.multiTouchPanning = true;
+                pointerInput.multiTouchPanAndZoom = true;
+                pointerInput.pinchPrecision = 50;        // Improve pinch-to-zoom sensitivity
+                pointerInput.pinchDeltaPercentage = 0.01; // Fine-tune pinch responsiveness
+            }
+        }
     }
 
     clearMeshes() {

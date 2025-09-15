@@ -179,7 +179,7 @@
                   <a href="https://huggingface.co/facebook/map-anything"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
-                       <i class="fas fa-hexagon-nodes"></i>
+                      <i class="fas fa-hexagon-nodes"></i>
                     </span>
                     <span>Model</span>
                   </a>
@@ -189,7 +189,7 @@
                   <a href="https://huggingface.co/facebook/map-anything-apache"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
-                       <i class="fas fa-hexagon-nodes"></i>
+                      <i class="fas fa-hexagon-nodes"></i>
                     </span>
                     <span>Apache Model</span>
                   </a>
@@ -344,20 +344,14 @@
           <section class="hero">
             <div class="container is-max-desktop" style="width: 100%;">
 
+              <div id="distanceDisplay" class="distance-display"
+                style="text-align: center; margin-bottom: 10px; padding: 8px; background-color: #f0f8ff; border-radius: 8px; font-weight: bold; color: #2c5aa0; min-height: 24px;">
+                Click two points to measure distance
+              </div>
+
               <div class="model-wrapper" style="width: 100%; aspect-ratio: 1.4/1;">
-                <div class="tips-wrapper">
-                  <div class="tips-icon">💡Tips</div>
-                  <div class="tips-text">
-                    <p>● <b>Zoom</b> - Scroll mouse wheel or pinch</p>
-                    <p>● <b>Rotate</b> - Left drag</p>
-                    <p>● <b>Pan</b> - Right drag</p>
-                    <p>● <b>Pick a point</b> - Left click</p>
-                  </div>
-                </div>
-                <div id="measureTextBox" class="float-text-box">
-                  Pick two points and measure the distance
-                </div>
-                <canvas id="renderCanvas" class="babylon-model-viewer" style="width: 100%; height: 100%;"></canvas>
+                <canvas id="renderCanvas" class="babylon-model-viewer"
+                  style="width: 100%; height: 100%; touch-action: none; -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;"></canvas>
               </div>
               <div id="gallerySelectionPanel" class="selection-panel"
                 style="width: 100%; aspect-ratio: 3.4/1; margin-bottom: 1em;">
@@ -466,7 +460,7 @@
   title  = {{MapAnything}: Universal Feed-Forward Metric {3D} Reconstruction},
   author = {Nikhil Keetha and Norman M\"uller and Johannes Sch\"onberger and Lorenzo Porzi and
             Yuchen Zhang and Tobias Fischer and Arno Knapitsch and Duncan Zauss and
-            Ethan Weber and Nelson Antunes and Manuel Lopez-Antequera and Samuel Rota Bul\`o and
+            Ethan Weber and Nelson Antunes and Jonathon Luiten and Manuel Lopez-Antequera and Samuel Rota Bul\`o and
             Christian Richardt and Deva Ramanan and Sebastian Scherer and Peter Kontschieder},
   note   = {arXiv:XXXX.XXXXX},
   year   = {2025}
@@ -534,6 +528,8 @@
             <p>
               This webpage template is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
               under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+              The visualization tools are adapted from <a href="https://vgg-t.github.io/">VGGT</a> and <a
+                href="https://wangrc.site/MoGe2Page/">MoGe-2</a>. Thank you!
             </p>
           </div>
         </div>
