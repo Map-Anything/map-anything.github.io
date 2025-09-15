@@ -2,7 +2,7 @@ class BabylonModelViewer {
     constructor(canvas) {
         this.canvas = canvas;
         this.isLoading = false; // Initialize loading state to prevent concurrent loads
-        
+
         // Enable mobile-friendly engine options
         const engineOptions = {
             preserveDrawingBuffer: true,

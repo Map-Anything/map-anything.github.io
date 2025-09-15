@@ -198,33 +198,33 @@ window.addEventListener("DOMContentLoaded", () => {
     const selectionPanel = document.querySelector('#gallerySelectionPanel');
     selectionPanel.addEventListener('click', function(event) {
         const img = event.target.closest('.selectable-image');
-          
+
         if (!img) return;
-          
+
         const name = img.getAttribute('name');
         const glbPath = `static/qual_viz_outputs/${name}/${name}_mapanything_output.glb`;
         const viewer = canvas.viewer;
-          
+
         // Prevent multiple simultaneous loads - DON'T change highlighting if blocked
         if (viewer.isLoading) {
             console.log('GLB already loading, ignoring click');
             return; // Exit early, don't change highlighting
         }
-          
+
         // If we get here, the load will proceed, so update highlighting
         selectionPanel.querySelectorAll('.selectable-image').forEach(function(image) {
             image.classList.remove('selected');
         });
         img.classList.add('selected');
-          
+
         viewer.isLoading = true;
         clearAnnotations();
-          
+
         // Clear all meshes immediately before loading new one
         viewer.clearMeshes();
         viewer.clearMaterials();
-          
-        viewer.loadGLB(glbPath, () => { 
+
+        viewer.loadGLB(glbPath, () => {
             resetViewer(viewer);
             viewer.isLoading = false;
         }, (error) => {
