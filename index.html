@@ -61,6 +61,12 @@
       color: var(--mapanything-link-hover-color) !important;
       font-weight: bold !important;
     }
+
+    /* Make superscript numbers smaller */
+    sup {
+      font-size: 0.7em !important;
+      vertical-align: super;
+    }
   </style>
 
   <link rel="icon" href="static/favicon.svg" type="image/svg+xml">
@@ -125,72 +131,78 @@
             </h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://nik-v9.github.io/">Nikhil Keetha</a>
+                <a href="https://nik-v9.github.io/">Nikhil Keetha</a><sup>1, 2</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://sirwyver.github.io/">Norman Müller</a>
+                <a href="https://sirwyver.github.io/">Norman Müller</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://demuc.de/">Johannes Schönberger</a>
+                <a href="https://demuc.de/">Johannes Schönberger</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://www.linkedin.com/in/lorenzoporzi">Lorenzo Porzi</a>
+                <a href="https://www.linkedin.com/in/lorenzoporzi">Lorenzo Porzi</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://infinity1096.github.io/">Yuchen Zhang</a>
+                <a href="https://infinity1096.github.io/">Yuchen Zhang</a><sup>2</sup>
               </span>
               <br>
               <span class="author-block">
-                <a href="https://tobiasfshr.github.io/">Tobias Fischer</a>
+                <a href="https://tobiasfshr.github.io/">Tobias Fischer</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://ch.linkedin.com/in/arno-knapitsch">Arno Knapitsch</a>
+                <a href="https://ch.linkedin.com/in/arno-knapitsch">Arno Knapitsch</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://ch.linkedin.com/in/duncan-zauss">Duncan Zauss</a>
+                <a href="https://ch.linkedin.com/in/duncan-zauss">Duncan Zauss</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://ethanweber.me/">Ethan Weber</a>
+                <a href="https://ethanweber.me/">Ethan Weber</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://nelsonantunes.ch/">Nelson Antunes</a>
+                <a href="https://nelsonantunes.ch/">Nelson Antunes</a><sup>1</sup>
               </span>
               <br>
               <span class="author-block">
-                <a href="https://x.com/jonathonluiten?lang=en">Jonathon Luiten</a>
+                <a href="https://x.com/jonathonluiten?lang=en">Jonathon Luiten</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://m.lopezantequera.com/">Manuel Lopez-Antequera</a>
+                <a href="https://m.lopezantequera.com/">Manuel Lopez-Antequera</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?user=484sccEAAAAJ">Samuel Rota Bulò</a>
+                <a href="https://scholar.google.com/citations?user=484sccEAAAAJ">Samuel Rota Bulò</a><sup>1</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://richardt.name/">Christian Richardt</a>
+                <a href="https://richardt.name/">Christian Richardt</a><sup>1</sup>
               </span>
               <br>
               <span class="author-block">
-                <a href="https://www.cs.cmu.edu/~deva/">Deva Ramanan</a>
+                <a href="https://www.cs.cmu.edu/~deva/">Deva Ramanan</a><sup>2</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
+                <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a><sup>2</sup>
               </span>
               &nbsp;&nbsp;&nbsp;
               <span class="author-block">
-                <a href="https://www.linkedin.com/in/peter-kontschieder-2a6410134">Peter Kontschieder</a>
+                <a href="https://www.linkedin.com/in/peter-kontschieder-2a6410134">Peter Kontschieder</a><sup>1</sup>
               </span>
+            </div>
+
+            <div class="is-size-5 publication-authors" style="margin-top: 0.5rem;">
+              <span class="author-block"><sup>1</sup> Meta Reality Labs</span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block"><sup>2</sup> Carnegie Mellon University</span>
             </div>
 
             <div class="is-size-5 publication-authors" style="margin-top: 0.7rem; margin-bottom: 0.3rem;">
@@ -346,7 +358,8 @@
           </div> -->
 
           <div class="content has-text-centered">
-            <img id="teaser" src="./static/MapAnything_Teaser.png" alt="Teaser">
+            <video id="Teaser" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/MapAnything_Teaser.mp4" type="video/mp4">
           </div>
 
           <!-- Abstract -->
